@@ -21,6 +21,7 @@ class Strip:
             position = (31 - x) * 8 + y
         self.graph.setPixelColor(position, Color(color_red, color_green, color_blue))
 
-    def fill_rect(self, position, rect_length, color_red, color_green, color_blue):
-        for loc in range(position, (position + rect_length), 1):
-            self.graph.setPixelColor(loc, Color(color_red, color_green, color_blue))
+    def fill_rect(self, x, y, width, height, color_red, color_green, color_blue):
+        for now_x in range(x, (x + width), 1):
+            for now_y in range(y, (y + height), 1):
+                self.set_pixel_color(now_x, now_y, color_red, color_green, color_blue)
