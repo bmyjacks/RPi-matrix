@@ -1,18 +1,23 @@
-from rpi_ws281x import Adafruit_NeoPixel, Color
+from strip import *
+import params
+import time
 
+display = Strip(params.LED_COUNT, params.LED_PIN, params.LED_FREQ_HZ, params.LED_DMA, params.LED_INVERT,
+                params.LED_BRIGHTNESS)
 
-LED_COUNT = 30
-LED_PIN = 18
-LED_BRIGHTNESS = 255
-LED_FREQ_HZ = 800000
-LED_DMA = 10
-LED_INVERT = False
+display.begin()
 
-strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
-
-strip.begin()
-
-for i in range(0, strip.numPixels()):
-    strip.setPixelColor(i, Color(0, 0, 255))
-
-strip.show()
+for x in range(32):
+    for y in range(8):
+        if x % 2:
+            if y % 2:
+                display.set_pixel_color(x, y, 255, 0, 0)
+            else:
+                display.set_pixel_color(x, y, 255, 255, 0)
+        else:
+            if y % 2:
+                display.set_pixel_color(x, y, 0, 0, 255)
+            else:
+                display.set_pixel_color(x, y, 0, 255, 255)
+        display.show()
+        time.sleep(0.05)
